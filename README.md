@@ -14,7 +14,9 @@ Dans ce TP vous allez apprendre à manipuler les recyclerviews dans une applicat
    -  Lancer les tests unitaires
    -  Lancer les tests d'interfaces
 2. Que remarquez-vous ? 
+Les tests ne s'effectuent pas ...
 3. Corrigner les erreurs
+On a implémenté les trucs qui nous manquaient
 4. Relancer les tests (unitaires et d'interfaces)
 6. Commit et push vos changements. Logiquement, vous devriez avoir un flag vert sur le repo. 
 

@@ -6,15 +6,18 @@ import com.openclassrooms.magicgithub.model.User
 class UserRepository(
     private val apiService: ApiService
 ) {
+    // Cette méthode doit retourner la liste des utilisateurs depuis l'apiService
     fun getUsers(): List<User> {
-        TODO("Should return the list of users retrieved from the api service")
+        return apiService.getUsers()
     }
 
+    // Cette méthode doit ajouter un utilisateur aléatoire via l'apiService
     fun addRandomUser() {
-        TODO("Should add a random user")
+        apiService.addRandomUser()
     }
 
+    // Cette méthode doit supprimer l'utilisateur spécifié via l'apiService
     fun deleteUser(user: User) {
-        TODO("Should remove the user")
+        apiService.deleteUser(user)
     }
 }
