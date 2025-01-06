@@ -30,10 +30,7 @@ class UserRepositoryTest {
     fun getUsersWithSuccess() {
         val usersActual = userRepository.getUsers()
         val usersExpected: List<User> = FAKE_USERS
-        assertEquals(
-            usersActual,
-            usersExpected
-        )
+        assertEquals(usersActual, usersExpected)
     }
 
     @Test
@@ -42,17 +39,22 @@ class UserRepositoryTest {
         userRepository.addRandomUser()
         val user = userRepository.getUsers().last()
         assertEquals(userRepository.getUsers().size, initialSize + 1)
-        assertTrue(
-            FAKE_USERS_RANDOM.filter {
-                it.equals(user)
-            }.isNotEmpty()
-        )
+        assertTrue(FAKE_USERS_RANDOM.any { it == user })
+        assertTrue(user.isActive) // Vérifier que le nouvel utilisateur est actif par défaut
+    }
+
+    @Test
+    fun toggleUserActiveStateWithSuccess() {
+        val user = userRepository.getUsers()[0]
+        val initialState = user.isActive
+        user.isActive = !initialState
+        assertTrue(user.isActive != initialState)
     }
 
     @Test
     fun deleteUserWithSuccess() {
         val userToDelete = userRepository.getUsers()[0]
         userRepository.deleteUser(userToDelete)
-        Assert.assertFalse(userRepository.getUsers().contains(userToDelete))
+        assertFalse(userRepository.getUsers().contains(userToDelete))
     }
 }
