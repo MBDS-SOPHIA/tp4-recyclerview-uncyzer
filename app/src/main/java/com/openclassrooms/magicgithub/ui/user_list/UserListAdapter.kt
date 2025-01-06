@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.magicgithub.R
 import com.openclassrooms.magicgithub.databinding.ItemListUserBinding
 import com.openclassrooms.magicgithub.model.User
+import com.openclassrooms.magicgithub.repository.UserRepository
 import com.openclassrooms.magicgithub.utils.UserDiffCallback
 
-class UserListAdapter(private val callback: Listener) :
-    RecyclerView.Adapter<ListUserViewHolder>() {
+class UserListAdapter(
+    private val callback: Listener,
+    private val repository: UserRepository
+) : RecyclerView.Adapter<ListUserViewHolder>() {
 
     private var users: MutableList<User> = mutableListOf()
 
@@ -42,8 +45,9 @@ class UserListAdapter(private val callback: Listener) :
     }
 
     fun moveItem(fromPosition: Int, toPosition: Int) {
-        val item = users.removeAt(fromPosition)
-        users.add(toPosition, item)
+        repository.updateUserPosition(fromPosition, toPosition)
+        val newList = repository.getUsers()
+        users = newList.toMutableList()
         notifyItemMoved(fromPosition, toPosition)
     }
 }

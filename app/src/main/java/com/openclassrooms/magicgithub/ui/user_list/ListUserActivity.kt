@@ -1,5 +1,6 @@
 package com.openclassrooms.magicgithub.ui.user_list
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -31,10 +32,9 @@ class ListUserActivity : AppCompatActivity(), UserListAdapter.Listener {
     }
 
     private fun configureRecyclerView() {
-        adapter = UserListAdapter(this)
+        adapter = UserListAdapter(this, getRepository())
         binding.activityListUserRv.adapter = adapter
 
-        // Configuration du swipe
         val swipeCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -51,6 +51,36 @@ class ListUserActivity : AppCompatActivity(), UserListAdapter.Listener {
                 val user = adapter.getItemAt(position)
                 user.isActive = !user.isActive
                 adapter.notifyItemChanged(position)
+            }
+
+            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+                super.onSelectedChanged(viewHolder, actionState)
+                when (actionState) {
+                    ItemTouchHelper.ACTION_STATE_DRAG -> {
+                        viewHolder?.itemView?.apply {
+                            setBackgroundColor(Color.parseColor("#E3F2FD")) // Bleu clair
+                            elevation = 8f
+                        }
+                    }
+                    ItemTouchHelper.ACTION_STATE_IDLE -> {
+                        viewHolder?.itemView?.apply {
+                            elevation = 0f
+                            // Restaurer la couleur d'origine en fonction de l'état actif/inactif
+                            val user = adapter.getItemAt(viewHolder.adapterPosition)
+                            setBackgroundColor(if (user.isActive) Color.WHITE else Color.parseColor("#FFCDD2"))
+                        }
+                    }
+                }
+            }
+
+            override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+                super.clearView(recyclerView, viewHolder)
+                // Restaurer l'apparence normale quand le drag est terminé
+                viewHolder.itemView.apply {
+                    elevation = 0f
+                    val user = adapter.getItemAt(viewHolder.adapterPosition)
+                    setBackgroundColor(if (user.isActive) Color.WHITE else Color.parseColor("#FFCDD2"))
+                }
             }
         }
 

@@ -29,4 +29,12 @@ class FakeApiService : ApiService {
     override fun deleteUser(user: User) {
         _users.remove(user)
     }
+
+    /**
+     * Change position [User] when we rearrange
+     */
+    override fun updateUserPosition(fromPos: Int, toPos: Int) {
+        val user = _users.removeAt(fromPos)
+        _users.add(toPos, user)
+    }
 }

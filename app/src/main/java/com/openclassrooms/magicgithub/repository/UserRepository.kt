@@ -20,4 +20,9 @@ class UserRepository(
     fun deleteUser(user: User) {
         apiService.deleteUser(user)
     }
+
+    // Cette méthode modifie l'ordre de la liste
+    fun updateUserPosition(fromPos: Int, toPos: Int) {
+        apiService.updateUserPosition(fromPos, toPos)
+    }
 }

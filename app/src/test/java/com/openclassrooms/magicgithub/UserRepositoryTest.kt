@@ -7,6 +7,7 @@ import com.openclassrooms.magicgithub.model.User
 import com.openclassrooms.magicgithub.repository.UserRepository
 import org.junit.Assert
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -56,5 +57,18 @@ class UserRepositoryTest {
         val userToDelete = userRepository.getUsers()[0]
         userRepository.deleteUser(userToDelete)
         assertFalse(userRepository.getUsers().contains(userToDelete))
+    }
+
+    @Test
+    fun updateUserPositionWithSuccess() {
+        val users = userRepository.getUsers()
+        val firstUser = users[0]
+        val secondUser = users[1]
+
+        userRepository.updateUserPosition(0, 1)
+
+        val updatedUsers = userRepository.getUsers()
+        assertEquals(secondUser, updatedUsers[0])
+        assertEquals(firstUser, updatedUsers[1])
     }
 }
