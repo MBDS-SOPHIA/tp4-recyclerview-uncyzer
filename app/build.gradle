@@ -2,11 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
-    compileSdkVersion 31
+    namespace "com.openclassrooms.magicgithub"
+    compileSdkVersion 34
     defaultConfig {
         applicationId "com.openclassrooms.magicgithub"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdk 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
